@@ -1,5 +1,0 @@
-import random
-
-
-def test_flaky():
-    assert random.random() < 0.6
