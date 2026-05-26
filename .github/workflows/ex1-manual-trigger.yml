@@ -1,0 +1,16 @@
+name: ex1-manual-trigger
+
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        description: 'Name to greet'
+        required: true
+        default: 'World'
+
+jobs:
+  hello:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Echo name
+        run: echo "Hello, ${{ github.event.inputs.name }}"
