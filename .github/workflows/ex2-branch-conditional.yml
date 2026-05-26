@@ -26,6 +26,7 @@ jobs:
         run: 'echo "Branch: ${{ github.ref_name }} (branch-test-only job)"'
 
   other-branches:
+    # this needs manual execution
     if: ${{ startsWith(github.ref, 'refs/heads/') && github.ref != 'refs/heads/main' && github.ref != 'refs/heads/branch-test-workflow-on-push' }}
     runs-on: ubuntu-latest
     steps:
