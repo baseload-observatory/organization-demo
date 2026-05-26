@@ -1,0 +1,30 @@
+name: ex2-branch-conditional
+
+on:
+  push:
+    branches:
+      - main
+      - branch-test-workflow-on-push
+  workflow_dispatch:
+
+jobs:
+  main-only:
+    if: ${{ github.ref == 'refs/heads/main' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Echo branch for main
+        run: echo "Branch: ${{ github.ref_name }} (main-only job)"
+
+  branch-test-only:
+    if: ${{ github.ref == 'refs/heads/branch-test-workflow-on-push' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Echo branch for branch-test-workflow-on-push
+        run: echo "Branch: ${{ github.ref_name }} (branch-test-only job)"
+
+  other-branches:
+    if: ${{ startsWith(github.ref, 'refs/heads/') && github.ref != 'refs/heads/main' && github.ref != 'refs/heads/branch-test-workflow-on-push' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Echo branch for other branches
+        run: echo "Branch: ${{ github.ref_name }} (other-branches job)"
