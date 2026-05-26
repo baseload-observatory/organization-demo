@@ -12,8 +12,11 @@ jobs:
     if: ${{ github.ref == 'refs/heads/main' }}
     runs-on: ubuntu-latest
     steps:
-      - name: Echo branch for main
+      - name: Echo branch for main (protect literal string with single quotes)
         run: 'echo "Branch: ${{ github.ref_name }} (main-only job)"'
+      - name: Echo branch for main (use literal block to avoid escaping)
+        run: |
+          echo "Branch: ${{ github.ref_name }} (main-only job)"
 
   branch-test-only:
     if: ${{ github.ref == 'refs/heads/branch-test-workflow-on-push' }}
