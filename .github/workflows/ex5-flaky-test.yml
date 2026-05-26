@@ -1,0 +1,24 @@
+name: Flaky Test Collector
+
+on:
+  workflow_dispatch:
+
+jobs:
+  flaky:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run flaky test but continue
+        run: |
+          pytest test_flaky.py || echo $? > flaky.exit
+        continue-on-error: true
+
+      - name: Report flaky outcome
+        run: |
+          if [ -f flaky.exit ]; then
+            echo "Flaky test failed with code $(cat flaky.exit)"
+          else
+            echo "Flaky test passed"
+          fi

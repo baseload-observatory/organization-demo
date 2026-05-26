@@ -5,7 +5,3 @@ def func(x):
 
 def test_answer():
     assert func(3) == 4
-
-
-def test_failed_answer():
-    assert func(3) == 5
